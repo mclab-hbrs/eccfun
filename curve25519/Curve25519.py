@@ -50,7 +50,7 @@ class XZPoint:
         r[1] is always r[0] + base point. 
         So, we know that r[1] - r[0] = BASE_POINT, so we can just set x1 = BASE_POINT
         :param Q: Point to add to this point
-        :param base: This is the base point, in other words r[1] - r[0]
+        :param base: This is the base point, in other words r[1] - r[0], P - Q
         :return: Jacobian point P + Q
         """
         new_x = square((self.x - self.z)*(Q.x + Q.z) + (self.x + self.z) * (Q.x-Q.z))
@@ -123,3 +123,7 @@ assert P.affine != Q.affine
 X = 1234 * P
 Y = 1337 * Q
 assert(X.affine == Y.affine)
+
+PQ_diff = (1337 - 1234) * G
+QP_diff = (1234 - 1337) * G
+assert(P._add(Q, PQ_diff.affine) == Q._add(P, QP_diff.affine))
