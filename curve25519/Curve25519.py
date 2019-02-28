@@ -34,7 +34,7 @@ class XZPoint:
         """
         Double function used to calculate the x value of 2P.
         Since z1 is set to 1, this has to be used in the montgommery latter
-        where the x value of the base point is used as x1.
+        where the x value of the base point is used as x1 in the add step.
         """
         plus_sq = square(self.x + self.z)
         minus_sq = square(self.x - self.z)
@@ -48,7 +48,10 @@ class XZPoint:
         This uses the value x1 = x value of base point.
         This works since we use the montgommery ladder and
         r[1] is always r[0] + base point. 
-        So, we know that r[1] - r[0] = BASE_POINT, so we can just set x1 = BASE_X
+        So, we know that r[1] - r[0] = BASE_POINT, so we can just set x1 = BASE_POINT
+        :param Q: Point to add to this point
+        :param base: This is the base point, in other words r[1] - r[0]
+        :return: Jacobian point P + Q
         """
         new_x = square((self.x - self.z)*(Q.x + Q.z) + (self.x + self.z) * (Q.x-Q.z))
         new_z = square((self.x - self.z)*(Q.x + Q.z) - (self.x + self.z) * (Q.x-Q.z)) * base % PRIME
