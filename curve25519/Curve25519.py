@@ -107,11 +107,7 @@ class Curve25519:
 
     def compute_shared(self, pk):
         p = XZPoint(pk)
-        print("Other's pub key: ", p)
-        print("Own secret: ", self.sk)
         P = self.sk * p
-        print("Point: ", P)
-        print("PAffine: ", P.affine)
         return (self.sk * p).affine
 
 
