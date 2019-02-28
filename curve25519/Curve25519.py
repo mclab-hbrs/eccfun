@@ -110,7 +110,6 @@ class Curve25519:
 
     def compute_shared(self, pk):
         p = XZPoint(pk)
-        P = self.sk * p
         return (self.sk * p).affine
 
 
