@@ -63,6 +63,8 @@ def scalarmult(k, G):
     for i in range(k.bit_length(), -1, -1):
         di = (k >> i) & 0x1
         oi = (di+1) % 2
+        # We're working with an abelian group, so it's OK to swap
+        # the points, P + Q = Q + P, and we can use the same base
         r[oi], r[di] = double_add(r[oi], r[di], base_x)
 
     return r[0]
