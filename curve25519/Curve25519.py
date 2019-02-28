@@ -121,7 +121,6 @@ assert(((ORDER+1) * G).affine == BASE_X)
 P = 1337 * G
 Q = 1234 * G
 
-# Can't use BASE_X, have to use different base...
 assert P.affine != Q.affine
 X = 1234 * P
 Y = 1337 * Q
