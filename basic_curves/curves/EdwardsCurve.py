@@ -27,7 +27,7 @@ class EdwardsCurve(EllipticCurve):
         https://en.wikipedia.org/wiki/Edwards_curve#The_group_law
         """
         if not (self.is_on_curve(P) and self.is_on_curve(Q)):
-            raise ValueError("Points not on basic_curves")
+            raise ValueError("Points not on curve")
         den_x = 1 + (self.d * P.x * P.y * Q.x * Q.y) % self.mod
         den_y = 1 - (self.d * P.x * P.y * Q.x * Q.y) % self.mod
 
