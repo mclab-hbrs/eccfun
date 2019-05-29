@@ -1,3 +1,6 @@
+from .AffinePoint import AffinePoint
+
+
 class EllipticCurve:
     def inv_val(self, val):
         """
@@ -15,6 +18,12 @@ class EllipticCurve:
         for y in range(self.mod):
             if y * y % self.mod == x:
                 return y
+
+    def invert(self, point):
+        """
+        Invert a point.
+        """
+        return AffinePoint(self, point.x, (-1 * point.y) % self.mod)
 
     def mul(self, point, scalar):
         """

@@ -43,9 +43,6 @@ class WeierstrassCurve(EllipticCurve):
     def calc_y_sq(self, x):
         return (self._exp(x, 3) + self.a * x + self.b) % self.mod
 
-    def invert(self, point):
-        return AffinePoint(self, point.x, (-1 * point.y) % self.mod)
-
     def is_on_curve(self, point):
         return point is self.poif or self.calc_y_sq(point.x) == self._exp(point.y, 2)
 

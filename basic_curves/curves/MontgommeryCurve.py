@@ -18,9 +18,6 @@ class MontgommeryCurve(EllipticCurve):
     def is_on_curve(self, P):
         return self.B * P.y ** 2 % self.mod == (P.x ** 3 + self.A * P.x ** 2 + P.x) % self.mod
 
-    def invert(self, P):
-        return AffinePoint(self, P.x, -P.y)
-
     def add(self, P, Q):
         if not (self.is_on_curve(P) and self.is_on_curve(Q)):
             raise ValueError("Points not on basic_curves")
