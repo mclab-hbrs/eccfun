@@ -5,6 +5,17 @@ class EllipticCurve:
         """
         return pow(val, self.mod - 2, self.mod)
 
+    def _bf_sqrt(self, x):
+        """
+        Very primitive way of brute forcing a quadratic residue.
+        This only works for small fields.
+        :param x: Field element
+        :return: sqrt(x)
+        """
+        for y in range(self.mod):
+            if y * y % self.mod == x:
+                return y
+
     def mul(self, point, scalar):
         """
         Do scalar multiplication Q = dP using double and add.
