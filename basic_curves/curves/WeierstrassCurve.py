@@ -59,7 +59,7 @@ class WeierstrassCurve(EllipticCurve):
                 yield AffinePoint(self, i, y)
                 yield AffinePoint(self, i, self.mod - y)
 
-    def plot(self):
+    def plot(self, dotsize=300, fontsize=32):
         """
         Plot the curve as scatter plot.
         This obviously only works for tiny fields.
@@ -73,7 +73,8 @@ class WeierstrassCurve(EllipticCurve):
             x.append(P.x)
             y.append(P.y)
 
-        plt.scatter(x, y, s=300, marker="o")
+        plt.rcParams.update({'font.size': fontsize})
+        plt.scatter(x, y, s=dotsize, marker="o")
         plt.grid()
         plt.title("{}".format(self))
 
