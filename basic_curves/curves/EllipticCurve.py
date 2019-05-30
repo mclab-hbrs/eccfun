@@ -8,16 +8,77 @@ class EllipticCurve:
         """
         return pow(val, self.mod - 2, self.mod)
 
-    def _bf_sqrt(self, x):
+    def legendre_symbol(self, a):
+        ls = pow(a, (self.mod - 1) // 2, self.mod)
+        return -1 if ls == self.mod - 1 else ls
+
+    def sqrt(self, a):
         """
-        Very primitive way of brute forcing a quadratic residue.
-        This only works for small fields.
-        :param x: Field element
-        :return: sqrt(x)
+        Take the square root in the field using Tonelli–Shanks algorithm.
+        Based on https://gist.github.com/nakov/60d62bdf4067ea72b7832ce9f71ae079
+        :return: sqrt(a) if it exists, 0 otherwise
         """
-        for y in range(self.mod):
-            if y * y % self.mod == x:
-                return y
+        p = self.mod
+        if self.legendre_symbol(a) != 1:
+            return 0
+        elif a == 0:
+            return 0
+        elif p == 2:
+            return p
+        elif p % 4 == 3:
+            # lagrange method
+            return pow(a, (p + 1) // 4, p)
+
+        # Partition p-1 to s * 2^e for an odd s (i.e.
+        # reduce all the powers of 2 from p-1)
+        s = p - 1
+        e = 0
+        while s % 2 == 0:
+            s //= 2
+            e += 1
+
+        # Find some 'n' with a legendre symbol n|p = -1.
+        # Shouldn't take long.
+        n = 2
+        while self.legendre_symbol(n) != -1:
+            n += 1
+
+        # Here be dragons!
+        # Read the paper "Square roots from 1; 24, 51,
+        # 10 to Dan Shanks" by Ezra Brown for more
+        # information
+        #
+
+        # x is a guess of the square root that gets better
+        # with each iteration.
+        # b is the "fudge factor" - by how much we're off
+        # with the guess. The invariant x^2 = ab (mod p)
+        # is maintained throughout the loop.
+        # g is used for successive powers of n to update
+        # both a and b
+        # r is the exponent - decreases with each update
+        #
+        x = pow(a, (s + 1) // 2, p)
+        b = pow(a, s, p)
+        g = pow(n, s, p)
+        r = e
+
+        while True:
+            t = b
+            m = 0
+            for m in range(r):
+                if t == 1:
+                    break
+                t = pow(t, 2, p)
+
+            if m == 0:
+                return x
+
+            gs = pow(g, 2 ** (r - m - 1), p)
+            g = (gs * gs) % p
+            x = (x * gs) % p
+            b = (b * g) % p
+            r = m
 
     def invert(self, point):
         """

@@ -47,12 +47,15 @@ class WeierstrassCurve(EllipticCurve):
         return point is self.poif or self.calc_y_sq(point.x) == self._exp(point.y, 2)
 
     def enumerate_points(self):
+        """
+        Yields points of the curve.
+        This only works well on tiny curves.
+        """
         for i in range(self.mod):
             sq = self.calc_y_sq(i)
+            y = self.sqrt(sq)
 
-            if sq and jacobi_symbol(sq, self.mod) == 1:
-                y = self._bf_sqrt(sq)
-
+            if y:
                 yield AffinePoint(self, i, y)
                 yield AffinePoint(self, i, self.mod - y)
 
@@ -81,7 +84,7 @@ class WeierstrassCurve(EllipticCurve):
         """
          Sum of the points P and Q.
          Rules: https://en.wikipedia.org/wiki/Elliptic_curve_point_multiplication
-         """
+        """
         if not (self.is_on_curve(P) and self.is_on_curve(Q)):
             raise ValueError(
                 "Points not on basic_curves {}: {}, {}: {}".format(P, self.is_on_curve(P), Q, self.is_on_curve(Q)))
