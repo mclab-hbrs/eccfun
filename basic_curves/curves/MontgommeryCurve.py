@@ -18,6 +18,16 @@ class MontgommeryCurve(EllipticCurve):
     def is_on_curve(self, P):
         return self.B * P.y ** 2 % self.mod == (P.x ** 3 + self.A * P.x ** 2 + P.x) % self.mod
 
+    def enumerate_points(self):
+        """
+        Yields points of the curve.
+        This only works well on tiny curves.
+        """
+        for x in range(self.mod):
+            for y in range(self.mod):
+                if (self.B * y**2) % self.mod == (x**3 + self.A * x**2 + x) % self.mod:
+                    yield AffinePoint(self, x, y)
+
     def add(self, P, Q):
         if not (self.is_on_curve(P) and self.is_on_curve(Q)):
             raise ValueError("Points not on basic_curves")
