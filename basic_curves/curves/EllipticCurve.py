@@ -1,4 +1,8 @@
 from .AffinePoint import AffinePoint
+try:
+    import matplotlib.pyplot as plt
+except ImportError:
+    plt = None
 
 
 class EllipticCurve:
@@ -112,3 +116,24 @@ class EllipticCurve:
             tmp = self.add(tmp, tmp)
 
         return result
+
+    def plot(self, dotsize=3, fontsize=5):
+        """
+        Plot the curve as scatter plot.
+        This obviously only works for tiny fields.
+        :return: pyplot object
+        """
+        if plt is None:
+            raise ValueError("matplotlib not available.")
+        x = []
+        y = []
+        for P in self.enumerate_points():
+            x.append(P.x)
+            y.append(P.y)
+
+        plt.rcParams.update({'font.size': fontsize})
+        plt.scatter(x, y, s=dotsize, marker="o")
+        plt.grid()
+        plt.title("{}".format(self))
+
+        return plt

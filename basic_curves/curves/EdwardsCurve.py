@@ -21,6 +21,16 @@ class EdwardsCurve(EllipticCurve):
         y_sq = pow(P.y, 2, self.mod)
         return (self.a * x_sq + y_sq)%self.mod == (1 + self.d * x_sq * y_sq) % self.mod
 
+    def enumerate_points(self):
+        """
+        Yields points of the curve.
+        This only works well on tiny curves.
+        """
+        for x in range(self.mod):
+            for y in range(self.mod):
+                if (x**2 + y**2) % self.mod == (1 + self.d * x**2 *y**2) % self.mod:
+                    yield AffinePoint(self, x, y)
+
     def add(self, P, Q):
         """
         Sum of points P and Q.
