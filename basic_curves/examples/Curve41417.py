@@ -1,5 +1,5 @@
-from curves import AffinePoint
-from curves import EdwardsCurve
+from ..curves import AffinePoint
+from ..curves import EdwardsCurve
 
 # Curve41417 is an edwards curve
 # https://safecurves.cr.yp.to/equation.html
