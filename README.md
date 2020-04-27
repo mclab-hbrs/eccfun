@@ -1,7 +1,7 @@
 # Elliptic Curve Diffie Hellman
 These scripts are not optimized for speed or security.
 
-They are for educational purposes only!
+They are for **educational purposes** only!
 
 Directory `basic curves` gives an intuition about elliptic curves.
 
