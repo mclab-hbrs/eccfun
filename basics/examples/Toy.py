@@ -1,6 +1,6 @@
-from ..curves import WeierstrassCurve
-from ..curves import EdwardsCurve
-from ..curves import MontgommeryCurve
+from curves import WeierstrassCurve
+from curves import EdwardsCurve
+from curves import MontgommeryCurve
 
 # Toy examples to test plotting
 p = 61
