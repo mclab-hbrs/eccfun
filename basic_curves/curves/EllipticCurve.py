@@ -139,7 +139,8 @@ class EllipticCurve:
         if lines is not None:
             for line in lines:
                 plt.plot(
-                    line['from'], line['to'], '-', marker='.',
+                    (line['from'][0], line['to'][0]),
+                    (line['from'][1], line['to'][1]), '-', marker='.',
                     color=line.get('color', 'blue'), linewidth=line.get('width', 1)
                 )
 

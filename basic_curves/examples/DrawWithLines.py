@@ -18,8 +18,8 @@ lines = []
 for i in range(2, len(subgroup[2])):
     lines.append(
         {
-            "from": (subgroup[2][i][0], subgroup[2][i-1][0]),
-            "to": (subgroup[2][i][1], subgroup[2][i-1][1])
+            "from": subgroup[2][i-1],
+            "to": subgroup[2][i]
         }
     )
 
