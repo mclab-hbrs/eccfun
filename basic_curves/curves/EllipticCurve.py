@@ -117,10 +117,12 @@ class EllipticCurve:
 
         return result
 
-    def plot(self, dotsize=3, fontsize=5):
+    def plot(self, dotsize=3, fontsize=5, lines=None):
         """
         Plot the curve as scatter plot.
         This obviously only works for tiny fields.
+        :param lines: A list of lines you want to draw additionally to the points.
+                      Every line is a dict with keys: from, to, color(optional), width(optional)
         :return: pyplot object
         """
         if plt is None:
@@ -133,6 +135,14 @@ class EllipticCurve:
 
         plt.rcParams.update({'font.size': fontsize})
         plt.scatter(x, y, s=dotsize, marker="o")
+
+        if lines is not None:
+            for line in lines:
+                plt.plot(
+                    line['from'], line['to'], '-', marker='.',
+                    color=line.get('color', 'blue'), linewidth=line.get('width', 1)
+                )
+
         plt.grid()
         plt.title("{}".format(self))
 
