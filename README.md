@@ -11,10 +11,6 @@ ladder with point compression using only XZ coordinates.
 
 **You can also plot with this library:**
 
-Elliptic Curve with highlighted subgroups:
-
-![Pretty Elliptic Curve](img/pretty.png)
-
 Weierstrass, Edwards and Montgomery Curves:
 
 ![Weierstrass Curve](img/weier.png)
@@ -22,3 +18,7 @@ Weierstrass, Edwards and Montgomery Curves:
 ![Edwards Curve](img/edwards.png)
 
 ![Montgomery Curve](img/mont.png)
+
+Elliptic Curve with highlighted subgroups:
+
+![Pretty Elliptic Curve](img/pretty.png)
